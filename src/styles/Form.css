@@ -1,0 +1,25 @@
+.registerForm {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    padding: 10px 0;
+  }
+  
+  #registerForm {
+    justify-content: end;
+  }
+  
+  .center {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #form-padding {
+    padding-top: 30px;
+    text-align: center;
+  }
+  

@@ -1,0 +1,14 @@
+#root {
+  margin: 0 auto;
+  padding: 0rem;
+  text-align: center;
+}
+
+body {
+  background-size: cover;
+  background-repeat: no-repeat; 
+}
+
+.content-wrapper {
+  min-height: 100vh;
+}

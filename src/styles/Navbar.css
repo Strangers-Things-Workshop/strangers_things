@@ -1,0 +1,7 @@
+#navbar {
+    display: flex;
+    padding: 2em;
+    justify-content: space-evenly;
+    background-color: #ffffff;
+    font-size: 1.2em;
+  }
