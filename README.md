@@ -1,6 +1,4 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🎨 This is Capstone Project for Fullstack Academy Class 2302-acc-pt-web-pt-b
 
 Currently, two official plugins are available:
 
