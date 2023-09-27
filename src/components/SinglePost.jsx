@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -10,6 +10,7 @@ const SinglePost = () => {
   const [post, setPost] = useState(null);
   const { id } = useParams();
   const login = Cookies.get("loggedIn");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPost = async () => {
@@ -22,13 +23,13 @@ const SinglePost = () => {
           if (singlePost) {
             setPost(singlePost);
           } else {
-            console.error("Post with the provided ID does not exist");
+            console.error("Post with that id exist.");
           }
         } else {
-          console.error("Failed to fetch the posts");
+          console.error("fail to fetch the posts");
         }
       } catch (error) {
-        console.error("Error occurred while fetching the post", error);
+        console.error("Error in fetching the post", error);
       }
     };
 
@@ -52,9 +53,13 @@ const SinglePost = () => {
           {/* Check if user is logged in to delete and edit the post*/}
           {login && (
             <>
-              <Link to={`/delete-post/${post._id}`} className="btn btn-danger">
+              <button
+                onClick={() => navigate(`/delete-post/${post._id}`)}
+                className="btn btn-danger"
+              >
                 Delete
-              </Link>
+              </button>
+
               <Link to={`/update-post/${post._id}`} className="btn btn-primary">
                 Edit
               </Link>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import { APIURL } from '../assets/api';
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { APIURL } from "../assets/api";
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
@@ -12,17 +12,11 @@ const UserProfile = () => {
       try {
         const response = await fetch(`${APIURL}/users/me`, {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${login}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${login}`,
           },
         });
-        
-        if(response.ok) {
-          const result = await response.json();
-          setUserData(result);
-        } else {
-          console.error('Failed to fetch user data');
-        }
+          setUserData(response);
       } catch (err) {
         console.error(err);
       }
@@ -38,7 +32,6 @@ const UserProfile = () => {
           <h2>{userData.username}'s Profile</h2>
           <p>Posts: {userData.posts}</p>
           <p>Messages: {userData.messages}</p>
-          {/* Render other user data as needed */}
         </div>
       ) : (
         <p>Loading...</p>
