@@ -16,6 +16,8 @@ const Header = () => {
       <div className="nav-links">
         <Link to="/">Home</Link>
         <Link to="/posts">Posts</Link>
+
+
         {isLoggedIn ? (
           <>
             <Link to="/newpost">Creat Post</Link>

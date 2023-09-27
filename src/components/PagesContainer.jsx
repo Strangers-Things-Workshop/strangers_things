@@ -10,6 +10,7 @@ import UserLogout from "./UserLogout";
 import UpdatePost from "./UpdatePost";
 import NewPost from "./NewPost";
 import UserProfile from "./userProfile";
+import SinglePost from "./SinglePost";
 
 const PagesContainer = () => {
   return (
@@ -23,6 +24,7 @@ const PagesContainer = () => {
         <Route path="/logout" element={<UserLogout />} />
         <Route path="/newpost" element={<NewPost />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/post/:id" element={<SinglePost />} />
       </Routes>
     </div>
   );
