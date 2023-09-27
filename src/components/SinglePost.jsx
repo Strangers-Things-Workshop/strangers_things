@@ -1,0 +1,71 @@
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+
+//api link
+import { APIURL } from "../assets/api/index";
+
+const SinglePost = () => {
+  const [post, setPost] = useState(null);
+  const { id } = useParams();
+  const login = Cookies.get("loggedIn");
+
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const response = await axios.get(`${APIURL}/posts`);
+        if (response.data.success) {
+          const allPosts = response.data.data.posts;
+          const singlePost = allPosts.find((post) => post._id === id);
+
+          if (singlePost) {
+            setPost(singlePost);
+          } else {
+            console.error("Post with the provided ID does not exist");
+          }
+        } else {
+          console.error("Failed to fetch the posts");
+        }
+      } catch (error) {
+        console.error("Error occurred while fetching the post", error);
+      }
+    };
+
+    getPost();
+  }, [id]);
+
+  return (
+    <div className="container mt-4">
+      {post ? (
+        <>
+          <h3>{post.title}</h3>
+          <p>{post.description}</p>
+          <p>
+            <strong>Price:</strong> {post.price}
+          </p>
+          <p>
+            <strong>Location:</strong> {post.location}
+          </p>
+          {post.willDeliver && <p>This item can be delivered.</p>}
+
+          {/* Check if user is logged in to delete and edit the post*/}
+          {login && (
+            <>
+              <Link to={`/delete-post/${post._id}`} className="btn btn-danger">
+                Delete
+              </Link>
+              <Link to={`/update-post/${post._id}`} className="btn btn-primary">
+                Edit
+              </Link>
+            </>
+          )}
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
+
+export default SinglePost;

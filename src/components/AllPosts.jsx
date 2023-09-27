@@ -28,7 +28,7 @@ const AllPosts = () => {
         <div className="row">
           <div className="col">
             <h3 className="mb-4">All Posts</h3>
-            {posts.map((post) => (
+            {/* {posts.map((post) => (
               <div key={post._id} className="card mb-3">
                 <div className="card-body">
                   <h5 className="card-title">
@@ -38,8 +38,8 @@ const AllPosts = () => {
                         (<Link to={`/update-post/${post._id}`}>Edit</Link>)
                       </span>
                     )}
-                  </h5>
-                  {/* <p className="card-text">{post.description}</p>
+                  </h5> */}
+            {/* <p className="card-text">{post.description}</p>
                   <p className="card-text">
                     <strong>Price: </strong>
                     {post.price}
@@ -47,7 +47,25 @@ const AllPosts = () => {
                   <p className="card-text">
                     <strong>Location: </strong>
                     {post.location} */}
-                  {/* </p> */}
+            {/* </p> */}
+            {/* </div>
+              </div>
+            ))} */}
+
+            {posts.map((post) => (
+              <div key={post._id} className="card mb-3">
+                <div className="card-body">
+                  <Link to={`/post/${post._id}`}>
+                    <h5 className="post-title">{post.title}</h5>
+                  </Link>
+                  <Link to={`/post/${post._id}`} className="btn btn-info">
+                    View
+                  </Link>
+                  {/* {login && (
+                    <span>
+                      (<Link to={`/update-post/${post._id}`}>Edit</Link>)
+                    </span>
+                  )} */}
                 </div>
               </div>
             ))}
