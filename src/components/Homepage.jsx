@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
     return (
         <div className='content-wrapper'>
-            Home
+            <h2>Welcome to Stranger's Things</h2>
         </div>
     );
 };

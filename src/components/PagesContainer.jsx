@@ -8,6 +8,8 @@ import UserRegister from "./UserRegister";
 import UserLogin from "./UserLogin";
 import UserLogout from "./UserLogout";
 import UpdatePost from "./UpdatePost";
+import NewPost from "./NewPost";
+import UserProfile from "./userProfile";
 
 const PagesContainer = () => {
   return (
@@ -15,10 +17,12 @@ const PagesContainer = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/posts" element={<AllPosts />} />
-        <Route path="/posts/:id" element={<UpdatePost />} />
+        <Route path="/update-post/:id" element={<UpdatePost />} />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/login" element={<UserLogin />} />
         <Route path="/logout" element={<UserLogout />} />
+        <Route path="/newpost" element={<NewPost />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </div>
   );

@@ -9,7 +9,7 @@ const UserLogout = () => {
     Cookies.remove("loggedIn");
     toast.success("Successfully signed out!");
     navigate("/");
-    location.reload();
+    window.location.reload();
   };
 
   return (

@@ -11,8 +11,8 @@ import { APIURL } from "../assets/api";
 const UpdatePost = () => {
   const navigate = useNavigate();
   const login = Cookies.get("loggedIn");
-  const [post, setPost] = useState({});
-  const location = useParams();
+  const [post, setPost] = useState(null);
+  const { id } = useParams();
   console.log(location.id);
 
   useEffect(() => {
@@ -20,40 +20,58 @@ const UpdatePost = () => {
   }, []);
 
   const getPost = async () => {
-    const url = `${APIURL}/posts/${location.id}`;
-    console.log('URL:', url);
-    console.log('ID:', location.id);
-
     try {
-      const response = await axios.get(url);
-      console.log('Response:', response);
-        setPost(response.data.data);
-      //     console.log(response.data[0]);
-      //   setPost(response.data.data[0]);
+      const response = await axios.get(`${APIURL}/posts`);
+
+      console.log("Response Data:", response.data);
+    //   setPost(response.data.posts);
+
+      if (response.data.success) {
+        const foundPost = response.data.data.posts.find((p) => p._id === id);
+        console.log("Found Post:", foundPost);
+        setPost(foundPost);
+      } else {
+        console.error("Server responded with an error:", response.data.error);
+      }
+
     } catch (error) {
-      console.log(error);
+      console.error("Error in getting the post:", error);
     }
   };
 
+  useEffect(() => {
+    console.log("Post state:", post);
+  }, [post]);
+
   const submitData = async (e) => {
     e.preventDefault();
-    
+
     //creating obj to update
-    
-    const data = new FormData(e.target);
-    const updatedPost = Object.fromEntries(data);
+    const updatedPost = {
+      post: {
+        title: post.title,
+        description: post.description,
+        price: post.price,
+        message: post.message,
+      },
+    };
+
     try {
-      await axios.patch(`${APIURL}/posts/${location.id}`, updatedPost, {
+      //send patch request
+      await axios.patch(`${APIURL}/posts/${id}`, updatedPost, {
         headers: {
-          Authorization: login,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${login}`,
         },
       });
 
       toast.success("successfully updated the post!");
       navigate("/posts");
-      location.reload();
+      //   location.reload();
     } catch (error) {
       console.log(error);
+      console.log(id);
+
       toast.error("There was an error updating the post.");
     }
   };
@@ -117,9 +135,8 @@ const UpdatePost = () => {
                 className="form-control"
                 placeholder="message"
                 name="message"
-                value={post.location || ""}
+                value={post.message || ""}
                 onChange={onChange}
-                required
               />
             </div>
 

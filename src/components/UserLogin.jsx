@@ -5,35 +5,37 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
+import { APIURL } from "../assets/api";
+
 const UserLogin = () => {
   const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    const registerData = Object.fromEntries(data);
+    const loginData = Object.fromEntries(data);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5050/user/login",
-        registerData
-      );
+      const response = await axios.post(`${APIURL}/users/login`, {
+        user: loginData,
+      });
       let d = new Date();
       d.setTime(d.getTime() + 59 * 60 * 1000);
-      Cookies.set("loggedIn", response.data, { expires: d });
+      Cookies.set("loggedIn", response.data.data.token, { expires: d });
 
       toast.success("Successfully signed in!");
 
       // console.log(Cookies.get("loggedIn"));
 
       navigate("/posts");
-      location.reload();
-    } catch (e) {
-      // console.log(response.data);
-      console.log(e);
-
-      // login failed message
-      toast.error("Login failed: Invalid username or password");
+      window.location.reload();
+    } catch (error) {
+      const errorMessage =
+        error.response && error.response.data
+          ? error.response.data
+          : "Login failed: Invalid username or password";
+      toast.error(errorMessage);
+      console.error(error);
     }
   };
 
@@ -42,12 +44,12 @@ const UserLogin = () => {
       <h2 id="form-padding">User Login</h2>
       <form onSubmit={login} className="registerForm">
         <div className="form-group">
-          <label>Email address</label>
+          <label>Your Username</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
             aria-describedby="emailHelp"
-            placeholder="Your email"
+            placeholder="Your Username"
             name="username"
             required
           />
@@ -61,7 +63,7 @@ const UserLogin = () => {
             type="password"
             className="form-control"
             placeholder="Password"
-            name="user_password"
+            name="password"
             required
           />
         </div>
