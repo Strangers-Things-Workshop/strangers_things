@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { APIURL } from "../assets/api/index";
 
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
   const login = Cookies.get("loggedIn");
-  const navigate = useNavigate();
 
   const GetPosts = async () => {
     try {
       const response = await axios.get(`${APIURL}/posts`);
       setPosts(response.data.data.posts);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -22,31 +22,37 @@ const AllPosts = () => {
     GetPosts();
   }, []);
 
-  const handleEdit = (id) => {
-    navigate(`/posts/${id}`);
-  };
-
   return (
     <>
-      <div>
-        <h3>All Posts</h3>
-        {posts.map((post, index) => (
-          <div key={index}>
-            <h3>{post.title}</h3>
-            {login && (
-              <button
-                onClick={() => handleEdit(post._id)}
-                type="button"
-                className="btn btn-link"
-              >
-                Edit Post
-              </button>
-            )}
-            <p>{post.description}</p>
-            <p>{post.price}</p>
-            <p>{post.message}</p>
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col">
+            <h3 className="mb-4">All Posts</h3>
+            {posts.map((post) => (
+              <div key={post._id} className="card mb-3">
+                <div className="card-body">
+                  <h5 className="card-title">
+                    {post.title}
+                    {login && (
+                      <span>
+                        (<Link to={`/update-post/${post._id}`}>Edit</Link>)
+                      </span>
+                    )}
+                  </h5>
+                  {/* <p className="card-text">{post.description}</p>
+                  <p className="card-text">
+                    <strong>Price: </strong>
+                    {post.price}
+                  </p>
+                  <p className="card-text">
+                    <strong>Location: </strong>
+                    {post.location} */}
+                  {/* </p> */}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </>
   );

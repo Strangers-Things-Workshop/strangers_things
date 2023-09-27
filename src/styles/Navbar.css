@@ -1,7 +1,27 @@
 #navbar {
-    display: flex;
-    padding: 2em;
-    justify-content: space-evenly;
-    background-color: #ffffff;
-    font-size: 1.2em;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2em;
+  background-color: #000034;
+  font-size: 1.2em;
+}
+
+#navbar .brand {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+#navbar .nav-links {
+  display: flex;
+  gap: 1em;
+}
+
+#navbar a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  text-decoration: underline;
+}
