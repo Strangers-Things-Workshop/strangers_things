@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import { APIURL } from "../assets/api/index";
 
 const AllPosts = () => {
+  //set state for posts and search
   const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  //get loggedIn
   const login = Cookies.get("loggedIn");
 
   const GetPosts = async () => {
@@ -22,37 +26,32 @@ const AllPosts = () => {
     GetPosts();
   }, []);
 
+  //filter from all posts
+  const filteredPosts = posts.filter((post) =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="container mt-4">
         <div className="row">
           <div className="col">
             <h3 className="mb-4">All Posts</h3>
-            {/* {posts.map((post) => (
-              <div key={post._id} className="card mb-3">
-                <div className="card-body">
-                  <h5 className="card-title">
-                    {post.title}
-                    {login && (
-                      <span>
-                        (<Link to={`/update-post/${post._id}`}>Edit</Link>)
-                      </span>
-                    )}
-                  </h5> */}
-            {/* <p className="card-text">{post.description}</p>
-                  <p className="card-text">
-                    <strong>Price: </strong>
-                    {post.price}
-                  </p>
-                  <p className="card-text">
-                    <strong>Location: </strong>
-                    {post.location} */}
-            {/* </p> */}
-            {/* </div>
-              </div>
-            ))} */}
 
-            {posts.map((post) => (
+            {/* search bar */}
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search..."
+              className="form-control mb-4"
+            />
+
+            {filteredPosts.length === 0 && (
+              <p>No posts found with the term "{searchTerm}"</p>
+            )}
+
+            {filteredPosts.map((post) => (
               <div key={post._id} className="card mb-3">
                 <div className="card-body">
                   <Link to={`/post/${post._id}`}>
@@ -61,11 +60,6 @@ const AllPosts = () => {
                   <Link to={`/post/${post._id}`} className="btn btn-info">
                     View
                   </Link>
-                  {/* {login && (
-                    <span>
-                      (<Link to={`/update-post/${post._id}`}>Edit</Link>)
-                    </span>
-                  )} */}
                 </div>
               </div>
             ))}

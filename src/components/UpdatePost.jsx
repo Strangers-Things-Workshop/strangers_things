@@ -24,7 +24,7 @@ const UpdatePost = () => {
       const response = await axios.get(`${APIURL}/posts`);
 
       console.log("Response Data:", response.data);
-    //   setPost(response.data.posts);
+      //   setPost(response.data.posts);
 
       if (response.data.success) {
         const foundPost = response.data.data.posts.find((p) => p._id === id);
@@ -33,7 +33,6 @@ const UpdatePost = () => {
       } else {
         console.error("Server responded with an error:", response.data.error);
       }
-
     } catch (error) {
       console.error("Error in getting the post:", error);
     }
@@ -67,7 +66,7 @@ const UpdatePost = () => {
 
       toast.success("successfully updated the post!");
       navigate("/posts");
-      //   location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error);
       console.log(id);
@@ -133,9 +132,9 @@ const UpdatePost = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="message"
-                name="message"
-                value={post.message || ""}
+                placeholder="location"
+                name="location"
+                value={post.location || ""}
                 onChange={onChange}
               />
             </div>
