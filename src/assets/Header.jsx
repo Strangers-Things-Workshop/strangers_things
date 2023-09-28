@@ -12,11 +12,10 @@ const Header = () => {
 
   return (
     <div id="navbar">
-      <div className="brand">Stranger's Thing</div>
+      <div className="brand">Stranger's Things WorkShop</div>
       <div className="nav-links">
         <Link to="/">Home</Link>
         <Link to="/posts">Posts</Link>
-
 
         {isLoggedIn ? (
           <>

@@ -28,6 +28,13 @@ const DeletePost = () => {
     } catch (error) {
       console.error("Failed to delete the post!", error);
       toast.error(`Failed to delete the post!`);
+
+      //check if the post exist to delete
+      if (error.response && error.response.status === 404) {
+        toast.error("The post you are trying to delete does not exist!");
+      } else {
+        toast.error("Choose another post!");
+      }
     }
   };
 

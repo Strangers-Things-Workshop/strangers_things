@@ -1,117 +1,12 @@
-// import React, { useEffect, useState } from "react";
-// import Cookies from "js-cookie";
-// import { APIURL } from "../assets/api";
-
-// const UserProfile = () => {
-//   const [userData, setUserData] = useState(null);
-
-//   const login = Cookies.get("loggedIn");
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch(`${APIURL}/users/me`, {
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${login}`,
-//           },
-//         });
-//           setUserData(response);
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   return (
-//     <div>
-//       {userData ? (
-//         <div>
-//           <h2>{userData.username}'s Profile</h2>
-//           <p>Posts: {userData.posts}</p>
-//           <p>Messages: {userData.messages}</p>
-//         </div>
-//       ) : (
-//         <p>Loading...</p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default UserProfile;
-
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import Cookies from "js-cookie";
-// import { APIURL } from "../assets/api";
-
-// const Profile = () => {
-//   const [userData, setUserData] = useState({
-//     posts: [],
-//     messages: [],
-//     username: "",
-//   });
-
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       const token = Cookies.get("loggedIn");
-//       try {
-//         const response = await axios.get(`${APIURL}/users/me`, {
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${token}`,
-//           },
-//         });
-
-//         console.log(response.data); // Log to check the structure
-
-//         // Modify based on the actual structure of response.data
-//         setUserData({
-//           posts: response.data.posts || [],
-//           messages: response.data.messages || [],
-//           username: response.data.username || "",
-//         });
-//       } catch (error) {
-//         console.error("Error fetching user data:", error);
-//       }
-//     };
-//     fetchUserData();
-//   }, []);
-
-//   return (
-//     <div>
-//       <h1>{userData.username}'s Profile</h1>
-//       <h2>Posts</h2>
-//       <ul>
-//         {userData.posts.map((post) => (
-//           <li key={post._id}>
-//             {post.title}: {post.description}
-//           </li>
-//         ))}
-//       </ul>
-//       <h2>Messages</h2>
-//       <ul>
-//         {userData.messages.map((message) => (
-//           <li key={message._id}>
-//             {message.content} - from {message.fromUser.username} on post{" "}
-//             {message.post.title}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Profile;
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { APIURL } from "../assets/api";
+import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     posts: [],
     messages: [],
@@ -145,25 +40,74 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
-      <h1>{userData.username}'s Profile</h1>
-      <h2>Posts</h2>
-      <ul>
+    // <div>
+    //   <h1>{userData.username}'s Profile</h1>
+    //   <h2>Posts</h2>
+    //   <ul>
+    //     {userData.posts.map((post) => (
+    //       <li key={post._id}>
+    //         {post.title}: {post.description}
+    //       </li>
+    //     ))}
+    //   </ul>
+    //   <h2>Messages</h2>
+    //   <ul>
+    //     {userData.messages.map((message) => (
+    //       <li key={message._id}>
+    //         {message.content} - from {message.fromUser.username} on post{" "}
+    //         {message.post.title}
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
+
+    <div className="container mt-4">
+      <h2>{userData.username}'s Profile</h2>
+
+      <h4 className="mt-5">My Posts</h4>
+      <div className="row">
         {userData.posts.map((post) => (
-          <li key={post._id}>
-            {post.title}: {post.description}
-          </li>
+          <div key={post._id} className="col-md-6 mb-5">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Tilte: {post.title}</h5>
+                <p className="card-text">Description: {post.description}</p>
+                <p className="card-text">Price: {post.price}</p>
+                <p className="card-text">Location: {post.location}</p>
+                <p className="card-text">Created: {post.createdAt}</p>
+                <p className="card-text">Updated: {post.updatedAt}</p>
+
+                <button
+                onClick={() => navigate(`/delete-post/${post._id}`)}
+                className="btn btn-link"
+              >
+                Delete
+              </button>
+
+              <Link to={`/update-post/${post._id}`} className="btn btn-link">
+                Edit
+              </Link>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
-      <h2>Messages</h2>
-      <ul>
+      </div>
+
+      <h2 className="mt-3">Messages</h2>
+      <div className="row">
         {userData.messages.map((message) => (
-          <li key={message._id}>
-            {message.content} - from {message.fromUser.username} on post{" "}
-            {message.post.title}
-          </li>
+          <div key={message._id} className="col-md-5 mb-5">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">{message.post.title}</h5>
+                <p className="card-text">
+                  {message.content} - from {message.fromUser.username}
+                </p>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

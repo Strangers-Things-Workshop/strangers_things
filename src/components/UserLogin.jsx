@@ -41,7 +41,7 @@ const UserLogin = () => {
 
   return (
     <div>
-      <h2 id="form-padding">User Login</h2>
+      <h3 id="form-padding">User Login</h3>
       <form onSubmit={login} className="registerForm">
         <div className="form-group">
           <label>Your Username</label>
