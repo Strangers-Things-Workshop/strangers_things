@@ -40,15 +40,22 @@ const SinglePost = () => {
     <div className="container mt-4">
       {post ? (
         <>
-          <h3>{post.title}</h3>
-          <p>{post.description}</p>
+          <h3>Title: {post.title}</h3>
+          <p>
+            <strong>Description:</strong> {post.description}
+          </p>
           <p>
             <strong>Price:</strong> {post.price}
           </p>
           <p>
             <strong>Location:</strong> {post.location}
           </p>
-          {post.willDeliver && <p>This item can be delivered.</p>}
+
+          {post.willDeliver && (
+            <p>
+              <strong>Delivery: </strong> This item can be delivered.
+            </p>
+          )}
           <p>
             <strong>Author ID:</strong> {post.author._id}
           </p>

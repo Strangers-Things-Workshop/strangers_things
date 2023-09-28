@@ -37,7 +37,7 @@ const UpdatePost = () => {
       console.error("Error in getting the post:", error);
 
       //check if the post exist to delete
-      if (error.response && error.response.status === undefined){
+      if (error.response && error.response.status === undefined) {
         toast.error("The post you are trying to edit does not exist!");
       } else {
         toast.error("Edit another post!");
@@ -58,7 +58,7 @@ const UpdatePost = () => {
         title: post.title,
         description: post.description,
         price: post.price,
-        message: post.message,
+        location: post.location,
       },
     };
 
@@ -135,7 +135,7 @@ const UpdatePost = () => {
             </div>
 
             <div className="form-group">
-              <label>Message</label>
+              <label>Location</label>
               <input
                 type="text"
                 className="form-control"
