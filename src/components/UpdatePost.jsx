@@ -35,6 +35,13 @@ const UpdatePost = () => {
       }
     } catch (error) {
       console.error("Error in getting the post:", error);
+
+      //check if the post exist to delete
+      if (error.response && error.response.status === undefined){
+        toast.error("The post you are trying to edit does not exist!");
+      } else {
+        toast.error("Edit another post!");
+      }
     }
   };
 

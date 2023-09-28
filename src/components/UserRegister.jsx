@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 import { APIURL } from "../assets/api";
 
@@ -35,7 +36,7 @@ const UserRegister = () => {
 
   return (
     <div>
-      <h1 id="form-padding">Sign Up</h1>
+      <h3 id="form-padding">Sign Up</h3>
       <form className="registerForm" onSubmit={submit}>
         <div className="form-group">
           <label>Your Username</label>
@@ -66,6 +67,12 @@ const UserRegister = () => {
           Register
         </button>
       </form>
+
+      <div className="has-account">
+        <p>
+          Already Has Account <Link to="/login">Sign In</Link>
+        </p>
+      </div>
     </div>
   );
 };

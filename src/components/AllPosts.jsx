@@ -57,6 +57,10 @@ const AllPosts = () => {
                   <Link to={`/post/${post._id}`}>
                     <h5 className="post-title">{post.title}</h5>
                   </Link>
+                  <p>
+                    <strong>Author:</strong> {post.author.username}
+                  </p>
+
                   <Link to={`/post/${post._id}`} className="btn btn-info">
                     View
                   </Link>
