@@ -48,7 +48,7 @@ const AllPosts = () => {
             />
 
             {filteredPosts.length === 0 && (
-              <p>No posts found with the term "{searchTerm}"</p>
+              <p>No posts found{searchTerm}</p>
             )}
 
             {filteredPosts.map((post) => (
