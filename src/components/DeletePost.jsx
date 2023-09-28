@@ -9,8 +9,8 @@ import { APIURL } from "../assets/api/index";
 
 const DeletePost = () => {
   const navigate = useNavigate();
-  const login = Cookies.get("loggedIn");
   const { id } = useParams();
+  const token = Cookies.get("loggedIn");
 
   console.log(id);
 
@@ -19,19 +19,20 @@ const DeletePost = () => {
       await axios.delete(`${APIURL}/posts/${id}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${login}`,
+          Authorization: `Bearer ${token}`,
         },
       });
+
       toast.success("Post successfully deleted!");
       navigate("/posts");
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to delete the post!");
+      console.error("Failed to delete the post!", error);
+      toast.error(`Failed to delete the post!`);
     }
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 center">
       <button className="btn btn-danger" onClick={handleDeletePost}>
         Confirm Delete
       </button>

@@ -49,6 +49,13 @@ const SinglePost = () => {
             <strong>Location:</strong> {post.location}
           </p>
           {post.willDeliver && <p>This item can be delivered.</p>}
+          <p>
+            <strong>Author ID:</strong> {post.author._id}
+          </p>
+
+          <p>
+            <strong>Author Username:</strong> {post.author.username}
+          </p>
 
           {/* Check if user is logged in to delete and edit the post*/}
           {login && (
