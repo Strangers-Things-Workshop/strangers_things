@@ -40,27 +40,6 @@ const Profile = () => {
   }, []);
 
   return (
-    // <div>
-    //   <h1>{userData.username}'s Profile</h1>
-    //   <h2>Posts</h2>
-    //   <ul>
-    //     {userData.posts.map((post) => (
-    //       <li key={post._id}>
-    //         {post.title}: {post.description}
-    //       </li>
-    //     ))}
-    //   </ul>
-    //   <h2>Messages</h2>
-    //   <ul>
-    //     {userData.messages.map((message) => (
-    //       <li key={message._id}>
-    //         {message.content} - from {message.fromUser.username} on post{" "}
-    //         {message.post.title}
-    //       </li>
-    //     ))}
-    //   </ul>
-    // </div>
-
     <div className="container mt-4">
       <h2>{userData.username}'s Profile</h2>
 
@@ -78,15 +57,15 @@ const Profile = () => {
                 <p className="card-text">Updated: {post.updatedAt}</p>
 
                 <button
-                onClick={() => navigate(`/delete-post/${post._id}`)}
-                className="btn btn-link"
-              >
-                Delete
-              </button>
+                  onClick={() => navigate(`/delete-post/${post._id}`)}
+                  className="btn btn-link"
+                >
+                  Delete
+                </button>
 
-              <Link to={`/update-post/${post._id}`} className="btn btn-link">
-                Edit
-              </Link>
+                <Link to={`/update-post/${post._id}`} className="btn btn-link">
+                  Edit
+                </Link>
               </div>
             </div>
           </div>

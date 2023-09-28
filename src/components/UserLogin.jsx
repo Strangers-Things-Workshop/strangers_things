@@ -27,7 +27,7 @@ const UserLogin = () => {
 
       // console.log(Cookies.get("loggedIn"));
 
-      navigate("/posts");
+      navigate("/");
       window.location.reload();
     } catch (error) {
       const errorMessage =
