@@ -1,5 +1,6 @@
 import React from "react";
 import AllPosts from "./AllPosts";
+import Search from "./Search";
 
 const Home = () => {
   return (
